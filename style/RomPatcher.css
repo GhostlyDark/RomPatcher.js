@@ -1,9 +1,10 @@
-/* WebApps CSS template by Marc Robledo v20191106 */
-/* minify at https://cssminifier.com/ + https://www.base64-image.de/ */
+/* WebApps CSS template by Marc Robledo v20190531 */
 
-/* @FONT-FACES */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300');
+@font-face {font-family:'Open Sans';src: url('opensans-regular.woff2') format('woff2')}
+@font-face {font-family:'Open Sans';src: url('opensans-bold.woff2') format('woff2');font-weight:700}
+@font-face {font-family:'Roboto Mono';src: url('robotomono-light.woff2') format('woff2')}
+#row-removeheader,#row-addheader{display:none}
+#preload{background-image:url("expand.svg");visibility:hidden}
 
 body{
 	margin:0;
@@ -18,11 +19,6 @@ body{
 	-o-user-select:none;
 	user-select:none
 }
-
-
-/* hide header checkboxes */
-#row-removeheader,#row-addheader{display:none}
-
 
 /* flex main column */
 html, body{height:100%}
@@ -57,24 +53,17 @@ footer{padding: 50px 0 20px}
 
 
 /* icons */
-footer .icon, #crc32.valid:after{
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAQCAYAAABQrvyxAAACUElEQVRIx9XWzUtUURzG8atp04svtCiI3v6EQFIoInBREFgEQtC+VVCLWoQLMTKqRUEbU4uKaOht5a7IoDcoWkiLIKKVgqUUvkGMM2revid+V55u5+qdS5ANfEDvPXN4npl7zpkgDMMgpgFX8QEF8xG9aPKM/6f0n7W4ifkw+eXu5VG33Aq48G/C9K8B1EeTjLTsdrbjMQqYwn1sw2bkMYlp9GOHe89CiDNBuU5jAOujSe5KsFY8wVe8NaN4hsN4bWP7pIAL9B1hzGcMe667IjszFuhAaN65CfbIJ5tP8bVdl/F7rcBzT8ilvMxQ4JyEd9rdBHck0JUUBc7L+HtWoJShwEyswCasSghegUux8G2/7jHBoCzQDSkKuGd/1t4zZAVGMhQYlQLNmEA/1sTCV6JHgs/jxMJ9JihamEIZq3/M3lO0AmczFLggBYYloCuxWj753lj4Y78VZIJxeSQ2pgi/Dj9s/IQVqEZfGeEfIScFGjAmQZ+iDjfk2hyO/vF4McELKdCZokCbjH8l26gr8TBFeFc059lGXYlxCVyUv2dxxLs+mOC4hXkPt7AuYqsn+BYrOCcFTkkBpwq3Fwn/wIoGCedAIyZji3UGrYk7kx1ig1agXQLul/DNnsPsS3QiSwGnEt2e8LewQscmbKNN8k2UcGjRrdUm2YVp9OAgTqJKCuRi4UtWKvAUcCpwWcJ3WbEgRYHocRpCy5Jng4TcZ4vyk522NXJvpYSfwgF9vDwFIp1ut0m6/7d/zAW2C3XhG2rlerVdu2ZrYVn+Gv0v/QQllGUdmIg+uwAAAABJRU5ErkJggg==');
-}
-footer .icon{
-	background-position:0px 0px;
+
+#crc32.valid:after{
+	background-image:url('check.svg');
 	display:inline-block;
 	vertical-align:middle;
-	width:16px;height:16px
+	width:24px;height:20px;
+	content:"";
+	margin-left:2px;
+	position:relative;
+	top:-4px;
 }
-footer .icon.github{background-position:0px 0px}
-footer .icon.heart{background-position:-16px 0px}
-footer .icon.check{background-position:-32px 0px}
-
-
-
-
-
-
 
 
 /* header+footer */
@@ -176,7 +165,7 @@ select{
 	-moz-appearance:none;
 	text-overflow:'';
 
-	background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+");
+	background-image:url("expand.svg");
 	background-position:100% center;
 	background-repeat:no-repeat;
 }
@@ -184,14 +173,18 @@ select::-ms-expand{display:none}
 input[type=file].enabled:hover,select.enabled:hover{background-color:#dee1e1}
 input[type=file].disabled,select.disabled{background-color:transparent}
 
+
+
 #select-language{
-	background-color:#31343a;
+	background-color:#2b2e33;
+	transition:background-color .15s;
 	color:white;
 	cursor:pointer;
-	background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJmaWxsOiNmZmYiIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+");
+	background-image:url("lang.svg");
+	line-height:20px;
 }
 #select-language:hover,#select-language:focus{
-	background-color:#2b2e33;
+	background-color:#212429;
 	cursor:pointer;
 }
 
@@ -223,7 +216,6 @@ button.enabled:active{
 	transform:translateY(1px)
 }
 button:disabled{opacity:.35 !important;cursor:not-allowed}
-
 button.no-text.with-icon:before{margin-right:0px}
 
 
@@ -245,22 +237,6 @@ button.no-text.with-icon:before{margin-right:0px}
 #crc32.invalid{color: red}
 #crc32 span{text-decoration:underline}
 #crc32 span:hover{cursor:pointer;color:black}
-
-
-#crc32.valid:after{
-	background-position:0px 0px;
-	display:inline-block;
-	vertical-align:middle;
-	width:16px;height:16px;
-	background-position:-32px 0px;
-	content:"";
-	margin-left:4px;
-	/*content:" \002713"}*/
-}
-
-
-
-
 
 .message{padding: 3px 10px; border-radius:3px;display:inline}
 .message.error{background-color:#de4205; color:white}

@@ -16,7 +16,7 @@ const FORCE_HTTPS=true;
 if(FORCE_HTTPS && location.protocol==='http:')
 	location.href=window.location.href.replace('http:','https:');
 else if(location.protocol==='https:' && 'serviceWorker' in navigator)
-	navigator.serviceWorker.register('/RomPatcher.js/_cache_service_worker.js', {scope: '/RomPatcher.js/'});
+	navigator.serviceWorker.register('./_cache_service_worker.js', {scope: './'});
 
 
 
@@ -175,21 +175,18 @@ function _parseROM(){
 	}
 }
 
-
-
 function setLanguage(langCode){
 	if(typeof LOCALIZATION[langCode]==='undefined')
 		langCode='en';
 
 	userLanguage=LOCALIZATION[langCode];
-
 	document.documentElement.lang = langCode;
 
 	var translatableElements=document.querySelectorAll('*[data-localize]');
 	for(var i=0; i<translatableElements.length; i++){
 		translatableElements[i].innerHTML=_(translatableElements[i].dataset.localize);
 	}
-	
+
 	if(typeof localStorage!=='undefined'){
 		localStorage.setItem('rompatcher-js-lang', langCode);
 	}
@@ -215,7 +212,6 @@ addEvent(window,'load',function(){
 		langCode=localStorage.getItem('rompatcher-js-lang');
 	el('select-language').value=langCode;
 	setLanguage(langCode);
-
 	
 	el('row-file-patch').title=_('compatible_formats')+' IPS, UPS, APS, BPS, RUP, PPF, MOD (Paper Mario Star Rod), xdelta';
 	
@@ -228,13 +224,9 @@ addEvent(window,'load',function(){
 		romFile=new MarcFile(this, _parseROM);
 	});
 
-
-	/* dirty fix for mobile Safari https://stackoverflow.com/a/19323498 */
 	if(/Mobile\/\S+ Safari/.test(navigator.userAgent)){
 		el('input-file-patch').accept='';
 	}
-
-
 
 	/* predefined patches */
 	if(typeof PREDEFINED_PATCHES!=='undefined'){
@@ -452,21 +444,8 @@ function preparePatchedRom(originalRom, patchedRom, headerSize){
 		}
 	}
 
-
-
-	/* fix checksum if needed */
-	//var fixedChecksum=fixConsoleChecksum(patchedRom);
-
-
-
-
 	setMessage('apply');
 	patchedRom.save();
-
-
-	/*if(fixedChecksum){
-		setMessage('apply','Checksum was fixed','warning');
-	}*/
 	
 	//debug: create unheadered patch
 	/*if(headerSize && el('checkbox-addheader').checked){
@@ -676,14 +655,6 @@ function setCreatorMode(creatorMode){
 
 
 
-/* Event listeners */
-
-document.addEventListener('DOMContentLoaded', function() {
-document.getElementById("switch-create-button").addEventListener('click', function(){setCreatorMode(!/enabled/.test(el('switch-create').className))})
-document.getElementById("button-apply").addEventListener('click', function(){applyPatch(patch, romFile, false)})
-document.getElementById("button-create").addEventListener('click', function(){createPatch(romFile1, romFile2, el('select-patch-type').value)})
-document.getElementById("select-language").addEventListener('change', function(){setLanguage(this.value)})
-})
 
 
 
@@ -698,3 +669,10 @@ document.getElementById("select-language").addEventListener('change', function()
  *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
  */
 var saveAs=saveAs||function(c){"use strict";if(!(void 0===c||"undefined"!=typeof navigator&&/MSIE [1-9]\./.test(navigator.userAgent))){var t=c.document,f=function(){return c.URL||c.webkitURL||c},s=t.createElementNS("http://www.w3.org/1999/xhtml","a"),d="download"in s,u=/constructor/i.test(c.HTMLElement)||c.safari,l=/CriOS\/[\d]+/.test(navigator.userAgent),p=c.setImmediate||c.setTimeout,v=function(t){p(function(){throw t},0)},w=function(t){setTimeout(function(){"string"==typeof t?f().revokeObjectURL(t):t.remove()},4e4)},m=function(t){return/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(t.type)?new Blob([String.fromCharCode(65279),t],{type:t.type}):t},r=function(t,n,e){e||(t=m(t));var r,o=this,a="application/octet-stream"===t.type,i=function(){!function(t,e,n){for(var r=(e=[].concat(e)).length;r--;){var o=t["on"+e[r]];if("function"==typeof o)try{o.call(t,n||t)}catch(t){v(t)}}}(o,"writestart progress write writeend".split(" "))};if(o.readyState=o.INIT,d)return r=f().createObjectURL(t),void p(function(){var t,e;s.href=r,s.download=n,t=s,e=new MouseEvent("click"),t.dispatchEvent(e),i(),w(r),o.readyState=o.DONE},0);!function(){if((l||a&&u)&&c.FileReader){var e=new FileReader;return e.onloadend=function(){var t=l?e.result:e.result.replace(/^data:[^;]*;/,"data:attachment/file;");c.open(t,"_blank")||(c.location.href=t),t=void 0,o.readyState=o.DONE,i()},e.readAsDataURL(t),o.readyState=o.INIT}r||(r=f().createObjectURL(t)),a?c.location.href=r:c.open(r,"_blank")||(c.location.href=r);o.readyState=o.DONE,i(),w(r)}()},e=r.prototype;return"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob?function(t,e,n){return e=e||t.name||"download",n||(t=m(t)),navigator.msSaveOrOpenBlob(t,e)}:(e.abort=function(){},e.readyState=e.INIT=0,e.WRITING=1,e.DONE=2,e.error=e.onwritestart=e.onprogress=e.onwrite=e.onabort=e.onerror=e.onwriteend=null,function(t,e,n){return new r(t,e||t.name||"download",n)})}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this);
+
+document.addEventListener('DOMContentLoaded', function() {
+document.getElementById("switch-create-button").addEventListener('click', function(){setCreatorMode(!/enabled/.test(el('switch-create').className))})
+document.getElementById("button-apply").addEventListener('click', function(){applyPatch(patch, romFile, false)})
+document.getElementById("button-create").addEventListener('click', function(){createPatch(romFile1, romFile2, el('select-patch-type').value)})
+document.getElementById("select-language").addEventListener('change', function(){setLanguage(this.value)})
+})

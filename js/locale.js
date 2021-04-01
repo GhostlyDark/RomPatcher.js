@@ -188,4 +188,4 @@ const LOCALIZATION={
 		'error_invalid_patch':		'無効なパッチエラー',
 		'warning_too_big':			'大きなファイルの使いはおすすめしない。'
 	}
-};
+}

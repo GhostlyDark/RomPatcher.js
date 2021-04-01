@@ -121,19 +121,17 @@ const CRC16_TABLE=(function(){
 }());
 function crc16(marcFile){
 	var crc=0^(-1);
-
 	for(var i=0;i<marcFile._u8array.length;i++)
 		crc=((crc>>>8)&0x0ff)^CRC16_TABLE[(crc^marcFile._u8array[i])&0xff];
-
 	return ((crc^(-1))>>>0) & 0xffff;
 }
 */
 
 
 
-		
-		
-		
+
+
+
 
 /* specific ROM checksums */
 /* this is unused code, might be used in a future so ROM checksums can be fixed after patching */
@@ -218,15 +216,15 @@ function fixConsoleChecksum(marcFile){
 			system=CONSOLES[i];
 	if(!system)
 		return false;
-	
+
 	var oldChecksum=console.getChecksum(marcFile);
 	var newChecksum=console.recalculateChecksum(marcFile);
-	
+
 	if(oldChecksum!==newChecksum)
 		if(alert('Fix '+console.title+' checksum?')){
 			console.updateChecksum(marcFile, newChecksum);
 			return true;
 		}
-	
+
 	return false;
 }

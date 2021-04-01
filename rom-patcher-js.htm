@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rom Patcher JS</title>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'none';manifest-src 'self';form-action 'none';base-uri 'none';img-src 'self';script-src 'self';style-src 'self';font-src 'self';block-all-mixed-content">
+	<meta name="description" content="An online web-based ROM patcher. Supported formats: IPS, BPS, UPS, APS, RUP, PPF and xdelta.">
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#31343a">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta property="og:image" content="https://evilgames.eu/img/og-rom-patcher-js.png">
+	<link rel="icon" href="style/logo192.png">
+	<link rel="apple-touch-icon" href="/style/logo192.png">
+	<link rel="manifest" href="manifest.json">
+
+	<link type="text/css" rel="stylesheet" href="style/RomPatcher.css" media="all">
+	<script type="text/javascript" src="js/locale.js"></script>
+	<script type="text/javascript" src="js/RomPatcher.js"></script>
+	<script type="text/javascript" src="js/MarcFile.js"></script>
+	<script type="text/javascript" src="js/crc.js"></script>
+	<script type="text/javascript" src="js/formats/zip.js"></script>
+	<script type="text/javascript" src="js/formats/ips.js"></script>
+	<script type="text/javascript" src="js/formats/ups.js"></script>
+	<script type="text/javascript" src="js/formats/aps.js"></script>
+	<script type="text/javascript" src="js/formats/bps.js"></script>
+	<script type="text/javascript" src="js/formats/rup.js"></script>
+	<script type="text/javascript" src="js/formats/ppf.js"></script>
+	<script type="text/javascript" src="js/formats/pmsr.js"></script>
+	<script type="text/javascript" src="js/formats/vcdiff.js"></script>
+	<script type="text/javascript" src="js/zip.js/zip.js"></script>
+
+</head>
+<body><div id="column">
+
+
+<!-- HEADER -->
+<header><img src="style/logo192.png"><h1>Rom Patcher JS</h1></header>
+
+<!-- APP -->
+<div id="wrapper">
+    <div id="preload"></div>
+	<div id="switch-container"><span id="switch-create-button"><span data-localize="creator_mode">Creator mode</span> <span id="switch-create" class="switch disabled"></span></span></div>
+
+	<div id="tab0" class="tab">
+		<div class="row">
+			<div class="leftcol"><label for="input-file-rom" data-localize="rom_file">ROM file:</label></div>
+			<div class="rightcol">
+				<input type="file" id="input-file-rom" class="enabled" />
+			</div>
+		</div>
+		<div class="row" id="rom-info">
+			<div class="leftcol">CRC32:</div><div class="rightcol"><span id="crc32"></span></div>
+			<div class="leftcol">MD5:</div><div class="rightcol"><span id="md5"></span></div>
+			<div class="leftcol">SHA-1:</div><div class="rightcol"><span id="sha1"></span></div>
+		</div>
+		<div class="row" id="row-removeheader">
+			<div class="leftcol"></div>
+			<div class="rightcol">
+				<input type="checkbox" id="checkbox-removeheader" /> <label for="checkbox-removeheader" data-localize="remove_header">Remove header before patching</label>
+			</div>
+		</div>
+		<div class="row" id="row-addheader">
+			<div class="leftcol"></div>
+			<div class="rightcol">
+				<input type="checkbox" id="checkbox-addheader" /> <label for="checkbox-addheader" data-localize="add_header">Add temporary header</label> <small>(<label id="headersize" for="checkbox-addheader"></label>)</small>
+			</div>
+		</div>
+
+		<div class="row" id="row-file-patch">
+			<div class="leftcol"><label for="input-file-patch" data-localize="patch_file">Patch file:</label></div>
+			<div class="rightcol">
+				<input type="file" id="input-file-patch" accept=".ips,.ups,.bps,.aps,.rup,.ppf,.mod,.xdelta,.zip"/>
+			</div>
+		</div>
+
+		<div class="buttons">
+			<span id="message-apply" class="message"></span>
+			<button id="button-apply" data-localize="apply_patch" class="disabled" disabled>Apply patch</button>
+		</div>
+	</div>
+
+
+
+	<div id="tab1" class="tab">
+		<div class="row">
+			<div class="leftcol"><label for="input-file-rom1" data-localize="original_rom" >Original ROM:</label></div>
+			<div class="rightcol">
+				<input type="file" id="input-file-rom1" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="leftcol"><label for="input-file-rom2" data-localize="modified_rom">Modified ROM:</label></div>
+			<div class="rightcol">
+				<input type="file" id="input-file-rom2" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="leftcol" data-localize="patch_type">Patch type:</div>
+			<div class="rightcol">
+				<select id="select-patch-type">
+					<option value="ips">IPS</option>
+					<option value="bps">BPS</option>
+					<option value="ppf">PPF</option>
+					<option value="ups">UPS</option>
+					<option value="aps">APS</option>
+					<option value="rup">RUP</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="buttons">
+			<span id="message-create" class="message"></span>
+			<button id="button-create" class="disabled" disabled data-localize="create_patch">Create patch</button>
+		</div>
+	</div>
+</div>
+
+<div id="snackbar" class="closed"></div>
+
+
+
+
+<!-- FOOTER -->
+<footer>
+	<div>
+		<select id="select-language">
+			<option value="en">English</option>
+			<option value="de">Deutsch</option>
+			<option value="es">Español</option>
+			<option value="ca">Català</option>
+			<option value="ptb">Português Brasileiro</option>
+			<option value="ru">Russian</option>
+			<option value="ja">日本語</option>
+		</select>
+	</div>
+
+	
+	<br>
+	<a href="https://github.com/ghostlydark/RomPatcher.js/" target="_blank">GitHub</a>
+</footer>
+
+</div></body></html>
