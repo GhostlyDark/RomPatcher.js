@@ -326,11 +326,12 @@ function hasHeader(romFile){
 
 
 function updateChecksums(file, startOffset, force){
-	if(file===romFile && file.fileSize>33554432 && !force){
-		el('crc32').innerHTML='File is too big. <span onclick=\"updateChecksums(romFile,'+startOffset+',true)\">Force calculate checksum</span>';
+	if(file===romFile && file.fileSize>67108864 && !force){
+		el('crc32').innerHTML='File is too big. <span id=\"forceCHK\">Force calculate checksum</span>';
 		el('md5').innerHTML='';
 		el('sha1').innerHTML='';
 		setTabApplyEnabled(true);
+		document.getElementById('forceCHK').addEventListener('click', function(){updateChecksums(romFile,'+startOffset+',true)})
 		return false;
 	}
 	el('crc32').innerHTML='Calculating...';
