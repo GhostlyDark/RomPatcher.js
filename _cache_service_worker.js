@@ -29,7 +29,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='rom-patcher-js';
-var PRECACHE_VERSION='v18';
+var PRECACHE_VERSION='v19';
 var PRECACHE_URLS=[
 	'rom-patcher-js.htm',
 	'manifest.json',
