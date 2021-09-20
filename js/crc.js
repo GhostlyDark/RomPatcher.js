@@ -53,6 +53,7 @@ function md5(marcFile, headerSize){
 		for(i=0;i<16;i++)tail[i]=0;
 	}
 	tail[14]=n*8;
+	tail[15]=Math.floor(n/536870912) >>> 0; //if file is bigger than 512Mb*8, value is bigger than 32 bits, so it needs two words to store its length
 	_md5cycle(state,tail);
 
 	for(var i=0;i<state.length;i++){
