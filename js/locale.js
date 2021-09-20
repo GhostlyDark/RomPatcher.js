@@ -134,7 +134,7 @@ const LOCALIZATION={
 		'error_invalid_patch':		'Ungültiger Patch',
 		'warning_too_big':			'Große Dateien zu verwenden ist nicht empfohlen.'
 	},
-	'ptb':{
+	'pt-br':{
 		'creator_mode':				'Modo criador',
 
 		'apply_patch':				'Aplicar patch',
