@@ -3,18 +3,13 @@
 	"name":"Rom Patcher JS",
 	"icons":[
 		{
-			"src": "style/app_icon_114.png",
-			"sizes": "114x114",
-			"type": "image/png",
-			"density": "1.0"
-		},{
-			"src": "style/app_icon_144.png",
-			"sizes": "144x144",
-			"type": "image/png",
-			"density": "1.0"
-		},{
 			"src": "style/app_icon_192.png",
 			"sizes": "192x192",
+			"type": "image/png",
+			"density": "1.0"
+		},{
+			"src": "style/app_icon_512.png",
+			"sizes": "512x512",
 			"type": "image/png",
 			"density": "1.0"
 		},{
@@ -24,7 +19,7 @@
 			"purpose": "any maskable"
 		}
 	],
-	"start_url": "index.html",
+	"start_url": "rom-patcher-js.htm",
 	"display": "standalone",
 	"orientation": "portrait",
 	"theme_color": "#31343a",

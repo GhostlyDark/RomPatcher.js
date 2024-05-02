@@ -2,8 +2,13 @@
 /* minify at https://cssminifier.com/ */
 
 /* @FONT-FACES */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300');
+@font-face {font-family:'Open Sans';src: url('opensans-regular.woff2') format('woff2')}
+@font-face {font-family:'Open Sans';src: url('opensans-bold.woff2') format('woff2');font-weight:700}
+@font-face {font-family:'Roboto Mono';src: url('robotomono-light.woff2') format('woff2')}
+
+select{transition:background-color .1s}
+option{background-color:#fff}
+#button-settings{margin-bottom:5px}
 
 body{
 	margin:0;
